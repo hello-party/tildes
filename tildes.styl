@@ -204,6 +204,9 @@
     .btn-post-action-used {
         color: var(--link)
     }
+    .btn-post-action {
+        color: var(--link)
+    }
     .topic-voting.btn-used,
     .btn.btn-primary {
         background-color: var(--button);
@@ -281,7 +284,7 @@
         color: var(--visited)
     }
     .comment-itself .btn-post {
-        padding: .5rem .8rem;
+        padding: .6rem 0px 0px .8rem;
     }
     .btn-comment-collapse {
         margin: 0rem 0.5rem;
@@ -536,7 +539,11 @@
     }
     .comment-text p {
         max-width: 90%;
-        padding-left: .8rem;
+    }
+    .comment-text {
+        line-height: .9rem;
+        padding: .7rem 0rem 0rem 0rem;
+        margin-left: 22px;
     }
     .topic-full-text p br,
     .comment-text p br {
@@ -549,9 +556,9 @@
         margin: 5px .5rem
     }
     .label-comment-exemplary {
-        font-size: .8rem;
-        padding: 2px 10px;
-        line-height: 1rem
+        font-size: 0.5rem;
+        padding: 2px 3px;
+        line-height: .9rem;
     }
     article[data-comment-depth="1"],
     article[data-comment-depth="3"],
@@ -633,7 +640,6 @@
         display: block;
         font-size: 24%;
     }
-
 
     #sidebar p,
     p,
