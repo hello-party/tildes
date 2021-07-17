@@ -88,6 +88,25 @@
     a.site-header-logo {
         font-family: var(--font-sans)
     }
+
+    .site-header-logo {
+        display: inline-block;
+        background-image: url(/favicon-32x32.png);
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        padding-left: 20px;
+        padding-right: 9px;
+        line-height: 16px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--foreground-highlight-color);
+        background-size: 16px;
+        margin-top: 10px;
+    }
+
+    label[for='period'] {
+        display: none;
+    }
     #sidebar {
         background-color: var(--background)
     }
@@ -113,14 +132,15 @@
         background-color: var(--alternate);
         position: fixed;
         min-width: 100%;
-        padding: 10px 20px;
+        height: 35px;
+        padding: 0px 20px;
         z-index: 99999;
     }
     main {
-        padding-top: 52px;
+        padding-top: 45px;
     }
     #sidebar {
-        padding-top: 59px;
+        padding-top: 52px;
     }
 
     /* Votes and Buttons */
@@ -138,9 +158,9 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0px;
         position: fixed;
-        top: 12px;
+        top: 3px;
         left: 140px;
         z-index: 99999;
     }
