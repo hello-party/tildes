@@ -86,6 +86,15 @@
     a {
         color: var(--link)
     }
+    a:visited {
+        color: var(--visited)
+    }
+    a:active {
+        color: var(--active)
+    }
+    a:hover {
+        color: var(--hover)
+    }
     a.site-header-logo {
         font-family: var(--font-sans)
     }
@@ -171,13 +180,6 @@
     }
     .tab {
         border: 0px
-    }
-
-    #site-header .logged-in-user-alert {
-        background: var(--alert);
-        color: var(--background);
-        padding: 0px 10px;
-        border-radius: 7px;
     }
 
     if hideVotes {
@@ -517,7 +519,7 @@
         padding-left: 10px;
     }
     a.link-user {
-        color: var(--link);
+        color: var(--link)!important;
         font-size: inherit;
     }
     .label-topic-tag a {
@@ -616,8 +618,9 @@
     #site-header .logged-in-user-alert {
         background: var(--alert);
         color: var(--background);
-        padding: 0px 10px;
-        border-radius: 7px;
+        padding: 2px 10px;
+        border-radius: 2px;
+        font-size: .6rem;
     }
 
 
