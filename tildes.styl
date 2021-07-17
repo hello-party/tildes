@@ -1,8 +1,8 @@
 /* ==UserStyle==
 @name           tildes.net - From Scratch
 @namespace      github.com/openstyles/stylus
-@version        0.0.2
-@description    Completely rewritten
+@version        1.0.0
+@description    A new userstyle
 @author         tomf
 @preprocessor   stylus
 
@@ -82,7 +82,9 @@
             min-width: calc(100vw - 300px - 1.2rem);
         }
     }
-    a {color:var(--link)}
+    a {
+        color: var(--link)
+    }
     a.site-header-logo {
         font-family: var(--font-sans)
     }
@@ -198,6 +200,9 @@
     .btn .topic-voting {
         color: var(--button-text);
         border-color: var(--button);
+    }
+    .btn-post-action-used {
+        color: var(--link)
     }
     .topic-voting.btn-used,
     .btn.btn-primary {
@@ -503,7 +508,8 @@
     }
 
     if hideExcerpt {
-        .topic-text-excerpt, .topic-text-excerpt summary {
+        .topic-text-excerpt,
+        .topic-text-excerpt summary {
             display: none;
         }
         .topic-listing article {
@@ -619,5 +625,31 @@
     .group-list {
         margin: 1rem 0;
         column-count: columns;
+    }
+    .topic-full-text p br,
+    .comment-text p br {
+        content: "";
+        margin: 2em;
+        display: block;
+        font-size: 24%;
+    }
+
+
+    #sidebar p,
+    p,
+    .topic,
+    .site-header-logo,
+    body .site-header-logo,
+    body .site-header-logo:visited,
+    body .site-header-context,
+    body .site-header-context:visited,
+    .comment-text,
+    .bg-none,
+    .topic .topic-title,
+    .group-short-description,
+    .nav .nav .nav-item,
+    #sidebar,
+    #sidebar summary {
+        font-size: .7rem;
     }
 }
