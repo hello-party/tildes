@@ -6,12 +6,13 @@
 @author         tomf
 @preprocessor   stylus
 
-@var text       fontSize    "Font Size"         12pt
-@var checkbox   fullWidth   "Full Width"        1
-@var text       columns     Columns             2
-@var checkbox   hideVotes   "Hide Votes"        1
-@var checkbox   hideTopics "Hide Sub-Topics"    1
-@var checkbox   hideExcerpt "Hide Excerpts"     1
+@var text       fontSize        "Font Size"         12pt
+@var checkbox   fullWidth       "Full Width"        1
+@var text       columns         "Columns"           2
+@var checkbox   hideVotes       "Hide Votes"        1
+@var checkbox   hideTopics      "Hide Sub-Topics"   1
+@var checkbox   hideExcerpt     "Hide Excerpts"     1
+@var checkbox   ultraMinimal    "Ultra Minimal"     1
 
 ==/UserStyle== */
 @-moz-document domain("tildes.net") {
@@ -29,7 +30,7 @@
         --codeback: #e0e0d9;
         --usercolor: #282a36;
         --title: #167895;
-
+        --divhover: #f1fa8c;
         --link: #0087af;
         --hover: #6272A4;
         --visited: #6272A4;
@@ -37,6 +38,10 @@
         --alert: #FF5555;
         --button: #0087af;
         --button-text: #FBFBFB;
+        --owncomment: #FF5555;
+        --owncommenttext: #F8F8F2;
+        --vote-color: #F8F8F2;
+
         --cyan: #08a6c8;
         --green: #50FA7B;
         --orange: #ffb86c;
@@ -55,9 +60,6 @@
         --black: #282a36;
         --white: #FFFFFF;
 
-        --owncomment: #FF5555;
-        --owncommenttext: #F8F8F2;
-        --vote-color: #F8F8F2;
         --tiny: 6pt;
 
         --font-serif: 'IBM Plex Serif', 'Helvetica Neue', serif;
@@ -84,7 +86,8 @@
         }
     }
     a {
-        color: var(--link)
+        color: var(--link);
+        text-decoration: none;
     }
     a:visited {
         color: var(--visited)
@@ -107,15 +110,18 @@
         padding-left: 20px;
         padding-right: 9px;
         line-height: 16px;
-        font-size: 1.2rem;
         font-weight: bold;
         color: var(--foreground-highlight-color);
         background-size: 16px;
-        margin-top: 10px;
+        margin-top: 13px;
     }
 
     label[for='period'] {
         display: none;
+    }
+    select#period {
+        position: relative;
+        top: -1px;
     }
     #sidebar {
         background-color: var(--background)
@@ -126,6 +132,9 @@
     /* Topic Listing Columns */
     ol.topic-listing {
         column-count: columns;
+        column-rule-color: var(--border-color);
+        column-rule-style: dotted;
+        column-rule-width: 1px;
     }
     body .topic-listing > li {
         border-bottom: 1px dotted #ddd;
@@ -142,17 +151,20 @@
         background-color: var(--alternate);
         position: fixed;
         min-width: 100%;
-        height: 35px;
+        min-height: 42px;
         padding: 0px 20px;
         z-index: 99999;
+        border-bottom: 1px dotted #c9ced9;
     }
     main {
-        padding-top: 45px;
+        margin-top: 39px;
     }
     #sidebar {
         padding-top: 52px;
     }
-
+    #site-header .logged-in-user-info {
+        margin-top: 0.5rem;
+    }
     /* Votes and Buttons */
     .topic-voting-label {
         display: none;
@@ -161,7 +173,7 @@
     .btn-comment-collapse-label::after {
         content: "-";
     }
-    
+
     body .topic-voting.btn-used {
         color: var(--visited);
     }
@@ -173,8 +185,8 @@
         align-items: center;
         margin-bottom: 0px;
         position: fixed;
-        top: 3px;
-        left: 140px;
+        top: 5px;
+        left: 100px;
         z-index: 99999;
     }
     /* Hide Redundant Group Name */
@@ -231,7 +243,8 @@
         color: var(--link)
     }
     .btn-post-action {
-        color: var(--link)
+        color: var(--link);
+        text-decoration: none;
     }
     .topic-voting.btn-used,
     .btn.btn-primary {
@@ -349,6 +362,9 @@
         padding: 2px 8px 2px 5px!important;
         font-size: 0.6rem;
     }
+    .topic-info-comments {
+        white-space: inherit;
+    }
     .topic-info-comments a {
         color: var(--link)
     }
@@ -357,7 +373,7 @@
     .btn.btn-link,
     a.link-group,
     {
-        color: var(--black);
+        color: var(--black)!important;
         text-decoration: none;
     }
     .tab {
@@ -373,7 +389,7 @@
         line-height: 1rem;
     }
     .nav .nav-item a {
-       color:var(--black);
+        color: var(--black);
     }
 
     .nav .nav-item a:hover {
@@ -520,7 +536,7 @@
 
     /* Posts */
     .topic:hover {
-        background-color: var(--yellow);
+        background-color: var(--divhover);
     }
     .topic-listing article:active {
         padding-left: 10px;
@@ -688,5 +704,20 @@
     #sidebar,
     #sidebar summary {
         font-size: .7rem;
+    }
+
+    if ultraMinimal {
+
+        body > main {
+            background-color: var(--background);
+            min-width: calc(100vw - 210px - 1.2rem);
+        }
+        #sidebar {
+            width: 200px;
+            min-width: 200px;
+        }
+    }
+    .settings-list .form-select {
+        width: 200px;
     }
 }
