@@ -1,0 +1,623 @@
+/* ==UserStyle==
+@name           tildes.net - From Scratch
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    A new userstyle
+@author         tomf
+@preprocessor   stylus
+
+@var text       fontSize    "Font Size"         12pt
+@var checkbox   fullWidth   "Full Width"        1
+@var text       columns     Columns             2
+@var checkbox   hideVotes   "Hide Votes"        1
+@var checkbox   hideTopics "Hide Sub-Topics"    1
+@var checkbox   hideExcerpt "Hide Excerpts"     1
+
+==/UserStyle== */
+@-moz-document domain("tildes.net") {
+
+    :root {
+        --background: #f8f8f2;
+        --alternate: #f8f8f2;
+        --foreground: #404040;
+        --fg-dark: #b9b9b9;
+        --fg-darkalt: #9d9d9d;
+        --border: #0087af;
+        --form-border: #9d9d9d;
+        --comment: #0087af;
+        --codeback: #e0e0d9;
+        --usercolor: #282a36;
+        --title: #167895;
+
+        --link: #0087af;
+        --hover: #6272A4;
+        --visited: #6272A4;
+        --active: #08a6c8;
+        --alert: #FF5555;
+        --button: #0087af;
+        --button-text: #FBFBFB;
+        --cyan: #08a6c8;
+        --green: #50FA7B;
+        --orange: #ffb86c;
+        --pink: #ff79c6;
+        --purple: #bd93f9;
+        --red: #ff5555;
+        --yellow: #f1fa8c;
+
+        --label-joke: #50fa7b;
+        --label-noise: #f1fa8c;
+        --label-offtopic: #ff79c6;
+        --label-malice: #ff5555;
+        --label-color: #FFFFFF;
+        --label-nsfw: #FF5555;
+        --label-spoiler: #f55555;
+        --black: #282a36;
+        --white: #FFFFFF;
+
+        --owncomment: #FF5555;
+        --owncommenttext: #F8F8F2;
+        --vote-color: #F8F8F2;
+        --tiny: 6pt;
+
+        --font-serif: 'IBM Plex Serif', 'Helvetica Neue', serif;
+        --font-sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+        --font-main: 'OperatorMono Nerd Font', sans-serif;
+        --font-mono: 'OperatorMono Nerd Font', Courier New, monospaced;
+    }
+
+
+    /* -------------------------- */
+    html {
+        background-color: var(--background);
+        font-size: fontSize;
+    }
+
+    body {
+        background-color: var(--alternate);
+        font-family: var(--font-main);
+    }
+    body > main {
+        background-color: var(--background);
+        if fullWidth {
+            min-width: calc(100vw - 300px - 1.2rem);
+        }
+    }
+
+    a.site-header-logo {
+        font-family: var(--font-sans)
+    }
+    #sidebar {
+        background-color: var(--background)
+    }
+    sidebar p {
+        font-size: .7rem;
+    }
+    /* Topic Listing Columns */
+    ol.topic-listing {
+        column-count: columns;
+    }
+    body .topic-listing > li {
+        border-bottom: 1px dotted #ddd;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .topic-listing > li:nth-of-type(2n) {
+        background: var(--alternate)
+    }
+
+    /* Sticky Header */
+    #site-header {
+        background-color: var(--alternate);
+        position: fixed;
+        min-width: 100%;
+        padding: 10px 20px;
+        z-index: 99999;
+    }
+    main {
+        padding-top: 52px;
+    }
+    #sidebar {
+        padding-top: 59px;
+    }
+
+    /* Votes and Buttons */
+    .topic-voting-label {
+        display: none;
+    }
+
+
+    body .topic-voting.btn-used {
+        color: var(--visited);
+    }
+
+    /* Move Listing Options -- might have to adjust position*/
+    .listing-options {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 0.4rem;
+        position: fixed;
+        top: 16px;
+        left: 140px;
+        z-index: 99999;
+    }
+    /* Hide Redundant Group Name */
+    body .site-header-context {
+        display: none;
+    }
+    .tab {
+        border: 0px
+    }
+
+    #site-header .logged-in-user-alert {
+        background: var(--alert);
+        color: var(--background);
+        padding: 0px 10px;
+        border-radius: 7px;
+    }
+
+    if hideVotes {
+        body .topic-voting.btn-used {
+            background-color: var(--button);
+            border-color: var(--button);
+            color: var(--button);
+        }
+        body .topic-voting.btn-used:hover {
+            color: var(--white);
+        }
+        body .topic-voting-votes {
+            color: var(--vote-color);
+        }
+
+        article.topic-full menu button[data-ic-src*="/vote"] {
+            font-size: 0px;
+            text-decoration: none;
+        }
+
+        .btn-post {
+            font-size: .625rem;
+        }
+        article.topic-full menu button[data-ic-src*="/vote"]:before {
+            content: "Vote";
+            font-size: .625rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        article.topic-full menu button.btn-post-action-used[data-ic-src*="/vote"]:before {
+            content: "Voted";
+            display: block;
+        }
+
+        /* Received Votes */
+        .comment-votes {
+            display: none;
+        }
+    }
+    .btn .topic-voting {
+        color: var(--button-text);
+        border-color: var(--button);
+    }
+    .topic-voting.btn-used,
+    .btn.btn-primary {
+        background-color: var(--button);
+        border-color: var(--button);
+        color: var(--button-text)!important;
+        border-radius: 2px;
+    }
+    .btn:focus,
+    .btn:hover .topic-voting-votes {
+        color: var(--button);
+    }
+
+    /* Headers and Titles */
+    h1.topic-title a {
+        color: var(--title);
+    }
+    h1.topic-title a:hover {
+        color: var(--hover);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: var(--font-sans)
+    }
+
+    h1 a,
+    h2 a,
+    h3 a,
+    h4 a,
+    h5 a {
+        color: var(--link)
+    }
+    h1 a:hover,
+    h2 a:hover,
+    h3 a:hover,
+    h4 a:hover,
+    h5 a:hover {
+        color: var(--hover)
+    }
+    h1 a:active,
+    h2 a:active,
+    h3 a:active,
+    h4 a:active,
+    h5 a:active {
+        color: var(--active)
+    }
+    h1 a:visited,
+    h2 a:visited,
+    h3 a:visited,
+    h4 a:visited,
+    h5 a:visited {
+        color: var(--visited)
+    }
+
+
+    .comment-header {
+        background-color: rgba(0, 0, 0, .02);
+        font-size: .8rem!important;
+        padding: .5rem 0rem
+    }
+    .comment-text a {
+        text-decoration: none;
+        color: var(--link);
+        border-bottom: 1px dotted var(--link)
+    }
+    .comment-text a:hover {
+        border-bottom: 1px dotted var(--hover);
+        color: var(--hover)
+    }
+    .comment-text a:visited {
+        border-bottom: 1px dotted var(--visted);
+        color: var(--visited)
+    }
+    .comment-itself .btn-post {
+        padding: .5rem .8rem;
+    }
+    .btn-comment-collapse {
+        margin: 0rem 0.5rem;
+    }
+    /* Search Bar */
+    #sidebar .form-search .form-input {
+        border: 0px;
+    }
+
+    .input-group {
+        background: white;
+        padding: 2px;
+        border-radius: 2px;
+        border: 1px solid var(--form-border);
+    }
+
+    /* Hide filter message -- we all know this by now */
+    .topic-listing-filter {
+        display: none;
+    }
+    /* Selectors */
+    select.form-select:not([multiple]):not([size]) {
+        background: var(--background);
+        padding-left: 15px;
+        text-align-last: center;
+        border-radius: 2px;
+    }
+
+    /* Sub Colors */
+    .topic-listing details {
+        margin-right: 20px;
+    }
+    li.nav-item a,
+    .link-group {
+        border-radius: 5px;
+        padding: 2px 8px 2px 5px!important;
+        font-size: 0.6rem;
+    }
+    .topic-info-comments a,
+    .tab .tab-item.active a,
+    .tab .tab-item.active button,
+    .btn.btn-link,
+    a.link-group,
+    {
+        color: var(--black)!important;
+        text-decoration: none;
+    }
+    .tab {
+        border: 0px;
+        text-transform: capitalize;
+    }
+    .tab .tab-item.active a,
+    .tab .tab-item.active button {
+        border-bottom: 1px solid var(--border);
+        padding: 0px;
+    }
+    .nav .nav {
+        line-height: 1rem;
+    }
+    .nav .nav-item a:hover {
+        text-decoration: none;
+    }
+
+    /* group colors */
+    li.nav-item a[href^='/~a'],
+    a.link-group[href^='/~a'] {
+        background-color: #6272a450;
+    }
+    li.nav-item a[href^='/~b'],
+    a.link-group[href^='/~b'] {
+        background-color: #8be9fd50;
+    }
+    li.nav-item a[href^='/~c'],
+    a.link-group[href^='/~c'] {
+        background-color: #bd93f950;
+    }
+    li.nav-item a[href^='/~d'],
+    a.link-group[href^='/~d'] {
+        background-color: #ff79c650;
+    }
+    li.nav-item a[href^='/~e'],
+    a.link-group[href^='/~e'] {
+        background-color: #ff555550;
+    }
+    li.nav-item a[href^='/~f'],
+    a.link-group[href^='/~f'] {
+        background-color: #f2676c50;
+    }
+    li.nav-item a[href^='/~g'],
+    a.link-group[href^='/~g'] {
+        background-color: #ffb86c50;
+    }
+    li.nav-item a[href^='/~h'],
+    a.link-group[href^='/~h'] {
+        background-color: #f1fa8c50;
+    }
+    li.nav-item a[href^='/~i'],
+    a.link-group[href^='/~i'] {
+        background-color: #50fa7b50;
+    }
+    li.nav-item a[href^='/~j'],
+    a.link-group[href^='/~j'] {
+        background-color: #bcc2cd50;
+    }
+    li.nav-item a[href^='/~k'],
+    a.link-group[href^='/~k'] {
+        background-color: #6272a450;
+    }
+    li.nav-item a[href^='/~l'],
+    a.link-group[href^='/~l'] {
+        background-color: #8be9fd50;
+    }
+    li.nav-item a[href^='/~m'],
+    a.link-group[href^='/~m'] {
+        background-color: #bd93f950;
+    }
+    li.nav-item a[href^='/~n'],
+    a.link-group[href^='/~n'] {
+        background-color: #ff79c650;
+    }
+    li.nav-item a[href^='/~o'],
+    a.link-group[href^='/~o'] {
+        background-color: #ff555550;
+    }
+    li.nav-item a[href^='/~p'],
+    a.link-group[href^='/~p'] {
+        background-color: #f2676c50;
+    }
+    li.nav-item a[href^='/~q'],
+    a.link-group[href^='/~q'] {
+        background-color: #ffb86c50;
+    }
+    li.nav-item a[href^='/~r'],
+    a.link-group[href^='/~r'] {
+        background-color: #f1fa8c50;
+    }
+    li.nav-item a[href^='/~s'],
+    a.link-group[href^='/~s'] {
+        background-color: #50fa7b50;
+    }
+    li.nav-item a[href^='/~t'],
+    a.link-group[href^='/~t'] {
+        background-color: #bcc2cd50;
+    }
+    li.nav-item a[href^='/~u'],
+    a.link-group[href^='/~u'] {
+        background-color: #6272a450;
+    }
+    li.nav-item a[href^='/~v'],
+    a.link-group[href^='/~v'] {
+        background-color: #8be9fd50;
+    }
+    li.nav-item a[href^='/~w'],
+    a.link-group[href^='/~w'] {
+        background-color: #bd93f950;
+    }
+    li.nav-item a[href^='/~x'],
+    a.link-group[href^='/~x'] {
+        background-color: #ff79c650;
+    }
+    li.nav-item a[href^='/~y'],
+    a.link-group[href^='/~y'] {
+        background-color: #ff555550;
+    }
+    li.nav-item a[href^='/~z'],
+    a.link-group[href^='/~z'] {
+        background-color: #f2676c50;
+    }
+
+
+    /* Smaller Actions Menu  */
+    .topic-actions .menu {
+        min-width: 100px;
+    }
+    .topic .topic-actions {
+        text-align: center;
+    }
+    .topic-actions .btn {
+        font-size: 0pt;
+    }
+    .topic-actions .btn:before {
+        content: "☉";
+        font-size: .5rem;
+        padding: 0px 2px 0px 5px;
+    }
+    .topic-actions .menu li button {
+        color: var(--foreground)
+    }
+    .topic-actions .menu li button[data-ic-put-to*='bookmark']:before {
+        content: "★";
+        display: inline;
+        padding-right: 5px;
+        color: var(--foreground)
+    }
+    .topic-actions .menu li button[data-ic-put-to*='ignore']:before {
+        content: "✖";
+        display: inline;
+        padding-right: 5px;
+        color: var(--foreground)
+    }
+
+    /* Posts */
+    .topic:hover {
+        background-color: var(--yellow);
+    }
+    .topic-listing article:active {
+        padding-left: 10px;
+    }
+    a.link-user {
+        color: var(--link);
+        font-size: inherit;
+    }
+    .label-topic-tag a {
+        text-decoration: none;
+    }
+
+    .topic-metadata {
+        overflow: inherit;
+    }
+    if hideTopics {
+        .topic-metadata .topic-tags:last-child {
+            display: none;
+        }
+    }
+
+    if hideExcerpt {
+        .topic-text-excerpt summary {
+            display: none;
+        }
+        .topic-listing article {
+            height: 4.7rem;
+        }
+
+        .topic-listing .topic header {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+    }
+    /* Minor Replacements */
+    .topic-content-type:not(:first-child)::before {
+        content: "-"
+    }
+    .topic-content-type:not(:last-child)::after {
+        content: ""
+    }
+    /* Exemplary Highlight */
+    body .is-comment-exemplary > .comment-itself header.comment-header {
+        background-color: var(--yellow)
+    }
+    .comment-text p {
+        max-width: 90%;
+        padding-left: .8rem;
+    }
+    .topic-full-text p br,
+    .comment-text p br {
+        content: "";
+        margin: 2em;
+        display: block;
+        font-size: 24%;
+    }
+    .comment-labels {
+        margin: 5px .5rem
+    }
+    .label-comment-exemplary {
+        font-size: .8rem;
+        padding: 2px 10px;
+        line-height: 1rem
+    }
+    article[data-comment-depth="1"],
+    article[data-comment-depth="3"],
+    article[data-comment-depth="5"],
+    article[data-comment-depth="7"],
+    article[data-comment-depth="9"],
+    article[data-comment-depth="11"],
+    article[data-comment-depth="13"],
+    article[data-comment-depth="15"],
+    article[data-comment-depth="17"],
+    article[data-comment-depth="19"],
+    article[data-comment-depth="21"],
+    article[data-comment-depth="23"],
+    article[data-comment-depth="25"] {
+        border-left: 1px dashed var(--border);
+    }
+
+    .is-comment-collapsed-individual:not(:target) > .comment-itself header,
+    .is-comment-collapsed:not(:target) header {
+        background: var(--background)
+    }
+
+    /* Self Highlights */
+    .is-topic-mine .link-user,
+    .is-comment-mine > .comment-itself > header > .link-user {
+        color: var(--owncommenttext)!important;
+        background: var(--owncomment);
+        padding: 3px 6px 3px 6px;
+        border-radius: 7px;
+    }
+
+    #site-header .logged-in-user-alert {
+        background: var(--alert);
+        color: var(--background);
+        padding: 0px 10px;
+        border-radius: 7px;
+    }
+
+
+
+    /* Tags! */
+    .label-topic-tag {
+        border-radius: 2px;
+    }
+    .label-topic-tag-spoiler,
+    .label-topic-tag[class*="label-topic-tag-spoiler-"] {
+        background-color: var(--red)
+    }
+
+
+    /* Main Sub Page */
+    .group-list li {
+        text-indent: 0rem;
+    }
+    .group-list-item-not-subscribed:after {
+        content: " - not subscribed";
+        font-size: .6rem;
+        padding: 2px 5px;
+        color: var(--foreground);
+        font-style: italic;
+    }
+
+    .group-list-item-not-subscribed a.link-group {
+        background-color: var(--background);
+        border: 1px solid var(--foreground);
+    }
+    .group-list-item-not-subscribed a.link-group,
+    .group-list-item-subscribed a.link-group {
+        font-weight: 400
+    }
+    .group-list {
+        margin: 1rem 0;
+        column-count: columns;
+    }
+}
